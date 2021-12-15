@@ -1,40 +1,13 @@
-/*
-html,body {
-    height:100%;
-    padding-top:70px;
-}
-
-
-section {
-  height:calc(90% - 50px);
-}
-
-.affix {
-  padding:0px;
-  -webkit-transition:padding 0.2s linear;
-  -moz-transition:padding 0.2s linear;  
-  -o-transition:padding 0.2s linear;         
-  transition:padding 0.2s linear;  
-
-}
-
-.affix-top {
-  padding-top:15px;
-  padding-bottom:15px;
-  -webkit-transition:padding 0.5s linear;
-  -moz-transition:padding 0.5s linear;  
-  -o-transition:padding 0.5s linear;         
-  transition:padding 0.5s linear;  
-}
-*/
 a{
     color:black;
     text-decoration: none;
 }
+
 .social{
     width: 50px;
     position: fixed;
     top: 30px;
+    background-color: #1d1c22;
 
 }
 .social ul{
@@ -55,7 +28,7 @@ a{
 }
 .social ul li:hover{
     transform: translate(100px,0);
-    background: #4b4166;
+    background: #29282c;
 
 }
 .social ul li:hover a{

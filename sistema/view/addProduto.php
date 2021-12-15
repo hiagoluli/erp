@@ -5,20 +5,19 @@
 <html>
 	<head>
 		<title>usuarios</title>
-	  
+		<link rel="stylesheet" href="css/addProduto.css">
 	</head>
     
     <link rel="stylesheet" type="text/css" href="/css/login.css">
+	
     <body style="background-color: gray">
 
         <div class="login-page">
             <div class="form">
                 <form id="frmRegistro">
-                    <!--<input type="text" hidden="" id="idUsuario" name="idUsuario"/>-->
-                    <input type="text" id="nome" name="nome" placeholder="Nome"/>
-                    <input type="text" id="usuario" name="usuario" placeholder="Usuario"/>  
-					<input type="text" id="email" name="email" placeholder="Email"/>             
-                    <input type="password" id="senha" name="senha" placeholder="Senha"/>
+                    <input type="text" id="nome" name="nome" placeholder="Descrição"/>
+                    <input type="text" id="preco" name="preco" placeholder="Preço"/>  
+					<input type="text" id="qtde" name="qtde" placeholder="Quantidade"/>             
                     <br>
                     <br>
                     <button type="button" id="registro">SALVAR</button>
@@ -27,11 +26,14 @@
             </div>
         </div>
     </body>
+	
+
+
 </html>
 
 <script type="text/javascript">
 		$(document).ready(function(){
-			$('#tabelaUsuariosLoad').load('usuarios/tbl_usuarios.php');
+			$('#tabelaProdutosLoad').load('usuarios/tbl_produtos.php');
 
 			$('#registro').click(function(){
 /*
@@ -46,11 +48,11 @@
 				$.ajax({
 					type:"POST",
 					data:datos,
-					url:"../procedimentos/login/registrarUsuario.php",
+					url:"../procedimentos/produtos/inserirProdutos.php",
 					success:function(r){
 						if(r==1){
 							$('#frmRegistro')[0].reset();
-							$('#tabelaUsuariosLoad').load('usuarios/tbl_usuarios.php');
+							$('#tabelaprodutosLoad').load('usuarios/tbl_produtos.php');
 							alertify.success("Adicionado com sucesso");
 						}else{
 							alertify.error("Falha ao adicionar :(");

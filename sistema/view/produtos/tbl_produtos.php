@@ -7,9 +7,9 @@
 
 	$sql="SELECT id,
 				 nome,
-				 user,
-				 email
-			from usuarios";
+				 preco,
+				 qtde
+			from produtos";
 	$result=mysqli_query($conexao, $sql);
 
  ?>
@@ -56,15 +56,15 @@
 </style>
 <div style="background-color:#494e5e; border-radius:10px; padding:40px; margin-left: 200px; margin-right: 100px;">
 
-    <a id="bt" href="#" type="button"  onclick="window.location.href='addUsuario.php'">Adicionar</a>
+    <a id="bt" href="#" type="button"  onclick="window.location.href='addProduto.php'">Adicionar</a>
 
     <table id="tabela" style="text-align: center; border: 1px solid black; width: 100%;">
         <br>
         <br>
         <tr>
-            <td style="font-weight: bold;">Nome</td>
-            <td style="font-weight: bold;">Usuário</td>
-            <td style="font-weight: bold;">Email</td>
+            <td style="font-weight: bold;">Produto</td>
+            <td style="font-weight: bold;">Preço</td>
+            <td style="font-weight: bold;">Qtde</td>
             <td style="font-weight: bold;">Editar</td>
             <td style="font-weight: bold;">Excluir</td>
         </tr>
@@ -76,13 +76,13 @@
             <td><?php echo $mostrar[2]; ?></td>
             <td><?php echo $mostrar[3]; ?></td>
             <td>
-                <form method="post" action="alterarUsuario.php">
+                <form method="post" action="alterarProduto.php">
                     <input type="hidden" name="id" value="<?php echo $mostrar[0]; ?>">
                     <button style="margin-top:12px; font-size:17px; border:none; background-color: transparent" type="submit"><i style="color: orange; size:9x" class="fas fa-edit"></i></button>
                 </form>  		
             </td>
             <td>
-                <a onclick="eliminarUsuario('<?php echo $mostrar[0]; ?>')"><i style="color: red; size: 9x" class="fas fa-trash-alt"></i></a>			
+                <a onclick="eliminarProduto('<?php echo $mostrar[0]; ?>')"><i style="color: red; size: 9x" class="fas fa-trash-alt"></i></a>			
             </td>
         </tr>
 
@@ -91,15 +91,15 @@
 </div>
 
 <script type="text/javascript">
-    function eliminarUsuario(idusuario){
-        alertify.confirm('Deseja excluir este usuario?', function(){ 
+    function eliminarProduto(idproduto){
+        alertify.confirm('Deseja excluir este produto?', function(){ 
             $.ajax({
                 type:"POST",
-                data:"idusuario=" + idusuario,
-                url:"../procedimentos/usuarios/eliminarUsuario.php",
+                data:"idproduto=" + idproduto,
+                url:"../procedimentos/produtos/eliminarProduto.php",
                 success:function(r){
                     if(r==1){
-                        $('#tabelaUsuariosLoad').load('usuarios/tbl_usuarios.php');
+                        $('#tabelaProdutosLoad').load('produtos/tbl_produtos.php');
                         alertify.success("Excluido com sucesso!!");
                     }else{
                         alertify.error("Não excluido :(");

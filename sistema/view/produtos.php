@@ -22,7 +22,7 @@
         <br>
         <br>
         <div class="container">
-			<div id="tabelaUsuariosLoad"></div>
+			<div id="tabelaProdutosLoad"></div>
 		</div>
 
 	</body>
@@ -30,8 +30,8 @@
   
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#tabelaUsuariosLoad').load('usuarios/tbl_usuarios.php');
-
+			$('#tabelaProdutosLoad').load('produtos/tbl_produtos.php');
+/*
 			$('#registro').click(function(){
 				vazios=validarFormVazio('frmRegistro');
 
@@ -57,7 +57,7 @@
 						}
 					}
 				});
-			});
+			});*/
 		});
 	</script>
 

@@ -14,7 +14,7 @@
 ?>
 
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Registrar Usuário</title>
@@ -61,14 +61,14 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#registro').click(function(){
-
+/*
 			vazios=validarFormVazio('frmRegistro');
 
 			if(vazios > 0){
 				alert("Preencha os Campos!!");
 				return false;
 			}
-
+*/
 			dados=$('#frmRegistro').serialize();
 			
 			$.ajax({
