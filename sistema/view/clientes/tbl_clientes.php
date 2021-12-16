@@ -1,18 +1,25 @@
+
 <?php 
-	
-	require_once "../../classes/conexao.php";
-    require_once "../dependencias.php";
-	$c= new conectar();
-	$conexao=$c->conexao();
 
-	$sql="SELECT id,
-				 nome,
-				 user,
-				 email
-			from usuarios";
-	$result=mysqli_query($conexao, $sql);
 
- ?>
+require_once "../../classes/conexao.php";
+	$c = new conectar();
+		$conexao=$c->conexao();
+
+	$sql = "SELECT  cd_cliente, 
+					nm_nome, 
+					ds_endereco, 
+					nr_numero, 
+					tp_cliente, 
+					nr_documneto, 
+					ds_cidade, 
+					cd_uf, 
+					dt_cadastro, 
+					nr_telefone, 
+					nr_inscricao FROM clientes";
+	$result = mysqli_query($conexao, $sql);
+
+?>
 
 
 <style>
@@ -51,19 +58,28 @@
 
     i:hover {
         font-size: 18px;
-    } 
+    }  
 
 </style>
 <div style="background-color:rgba(0, 0, 0, 0.6); border-radius:10px; padding:40px; margin-left: 200px; margin-right: 100px;">
-    <a id="bt" href="#" type="button"  onclick="window.location.href='addUsuario.php'">Adicionar</a>
+
+    <a id="bt" href="#" type="button"  onclick="window.location.href='addCliente.php'">Adicionar</a>
 
     <table id="tabela" style="text-align: center; border: 1px solid black; width: 100%;">
         <br>
         <br>
         <tr>
             <td style="font-weight: bold;">Nome</td>
-            <td style="font-weight: bold;">Usuário</td>
-            <td style="font-weight: bold;">Email</td>
+            <td style="font-weight: bold;">Endereço</td>
+            <td style="font-weight: bold;">Numero</td>
+			<td style="font-weight: bold;">Tipo</td>
+			<td style="font-weight: bold;">Documento</td>
+			<td style="font-weight: bold;">Cidade</td>
+			<td style="font-weight: bold;">UF</td>
+			<td style="font-weight: bold;">Data</td>
+			<td style="font-weight: bold;">Telefone</td>
+			<td style="font-weight: bold;">Inscrição</td>
+
             <td style="font-weight: bold;">Editar</td>
             <td style="font-weight: bold;">Excluir</td>
         </tr>
@@ -74,14 +90,21 @@
             <td><?php echo $mostrar[1]; ?></td>
             <td><?php echo $mostrar[2]; ?></td>
             <td><?php echo $mostrar[3]; ?></td>
+			<td><?php echo $mostrar[4]; ?></td>
+			<td><?php echo $mostrar[5]; ?></td>
+			<td><?php echo $mostrar[6]; ?></td>
+			<td><?php echo $mostrar[7]; ?></td>
+			<td><?php echo $mostrar[8]; ?></td>
+			<td><?php echo $mostrar[9]; ?></td>
+			<td><?php echo $mostrar[10]; ?></td>
             <td>
-                <form method="post" action="alterarUsuario.php">
+                <form method="post" action="alterarCliente.php">
                     <input type="hidden" name="id" value="<?php echo $mostrar[0]; ?>">
                     <button style="margin-top:12px; font-size:17px; border:none; background-color: transparent" type="submit"><i style="color: orange; size:9x" class="fas fa-edit"></i></button>
                 </form>  		
             </td>
             <td>
-                <a onclick="eliminarUsuario('<?php echo $mostrar[0]; ?>')"><i style="color: red; size: 9x" class="fas fa-trash-alt"></i></a>			
+                <a onclick="excluirCliente('<?php echo $mostrar[0]; ?>')"><i style="color: red; size: 9x" class="fas fa-trash-alt"></i></a>			
             </td>
         </tr>
 
@@ -89,16 +112,17 @@
     </table>
 </div>
 
+
 <script type="text/javascript">
-    function eliminarUsuario(idusuario){
-        alertify.confirm('Deseja excluir este usuario?', function(){ 
+    function excluirCliente(idcliente){
+        alertify.confirm('Deseja excluir este cliente?', function(){ 
             $.ajax({
                 type:"POST",
-                data:"idusuario=" + idusuario,
-                url:"../procedimentos/usuarios/eliminarUsuario.php",
+                data:"idcliente=" + idcliente,
+                url:"../procedimentos/clientes/eliminarClientes.php",
                 success:function(r){
                     if(r==1){
-                        $('#tabelaUsuariosLoad').load('usuarios/tbl_usuarios.php');
+                        $('#tabelaClientesLoad').load('clientes/tbl_clientes.php');
                         alertify.success("Excluido com sucesso!!");
                     }else{
                         alertify.error("Não excluido :(");
@@ -110,4 +134,7 @@
         });
     }
 </script>
+
+
+
 

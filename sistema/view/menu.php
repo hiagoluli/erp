@@ -17,7 +17,7 @@
     <br>
     <ul>
       <li><a href="">HOME<i class="fa fa-home fa"></i></a></li>
-      <li><a href="">CLIENTES<i class="fa fa-user fa"></i></a></li>
+      <li><a href="clientes.php">CLIENTES<i class="fa fa-user fa"></i></a></li>
       <li><a href="Pedidos.php">PEDIDOS<i class="fas fa-file-invoice-dollar"></i></a></li>
       <li><a href="produtos.php">PRODUTOS<i class="fas fa-box-open"></i></a></li>
       <li><a href="usuarios.php">USUARIOS<i class="fas fa-user-lock"></i></a></li>

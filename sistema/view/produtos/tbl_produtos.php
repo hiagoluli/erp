@@ -54,7 +54,7 @@
     }  
 
 </style>
-<div style="background-color:#494e5e; border-radius:10px; padding:40px; margin-left: 200px; margin-right: 100px;">
+<div style="background-color:rgba(0, 0, 0, 0.6); border-radius:10px; padding:40px; margin-left: 200px; margin-right: 100px;">
 
     <a id="bt" href="#" type="button"  onclick="window.location.href='addProduto.php'">Adicionar</a>
 

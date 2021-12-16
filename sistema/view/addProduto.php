@@ -1,4 +1,5 @@
 <?php require_once "dependencias.php" ?>
+<?php require_once "menu.php" ?>
 
 
 <!DOCTYPE html>
@@ -12,8 +13,9 @@
 	
     <body style="background-color: gray">
 
-        <div class="login-page">
-            <div class="form">
+        <div class="login-page">			
+            <div style="background-color: rgba(0, 0, 0, 0.6);" class="form">
+				<h3>Cadastro de Produtos</h3>
                 <form id="frmRegistro">
                     <input type="text" id="nome" name="nome" placeholder="Descrição"/>
                     <input type="text" id="preco" name="preco" placeholder="Preço"/>  

@@ -1,5 +1,5 @@
 <?php require_once "dependencias.php" ?>
-
+<?php require_once "menu.php" ?>
 
 <!DOCTYPE html>
 <html>
@@ -10,9 +10,9 @@
     
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <body style="background-color: gray">
-
         <div class="login-page">
-            <div class="form">
+            <div style="background-color: rgba(0, 0, 0, 0.6);" class="form">
+				<h3>Cadastro de Usuarios</h3>
                 <form id="frmRegistro">
                     <!--<input type="text" hidden="" id="idUsuario" name="idUsuario"/>-->
                     <input type="text" id="nome" name="nome" placeholder="Nome"/>

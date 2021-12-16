@@ -11,15 +11,17 @@ $obj = new clientes();
 
 
 $dados=array(
-	$_POST['idclienteU'],
-	$_POST['nomeU'],
-	$_POST['sobrenomeU'],
-	$_POST['enderecoU'],
-	$_POST['emailU'],
-	$_POST['telefoneU'],
-	$_POST['cpfU']
-	
-
+	$_POST['idCliente'],
+	$_POST['nome'],
+	$_POST['endereco'],
+	$_POST['numero'],
+	$_POST['tipo'],
+	$_POST['documento'],
+	$_POST['cidade'],
+	$_POST['uf'],
+	$_POST['cadastro'],
+	$_POST['telefone'],
+	$_POST['inscricao']
 );
 
 echo $obj->atualizarCliente($dados);

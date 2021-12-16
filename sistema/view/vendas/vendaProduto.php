@@ -1,9 +1,23 @@
 <?php 
 
 require_once "../../classes/conexao.php";
+require_once "../dependencias.php";
 	$c= new conectar();
 	$conexao=$c->conexao();
 ?>
+
+<?php 
+    
+	$c= new conectar();
+	$conexao=$c->conexao();
+
+	$sql="SELECT ds_produto,
+				 vl_tot_item,
+                 qt_item
+			from it_notas";
+	$resultado=mysqli_query($conexao, $sql);
+
+ ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -11,7 +25,7 @@ require_once "../../classes/conexao.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário | GN</title>
+    <title>Vendas</title>
     <style>
         body{
             font-family: Arial, Helvetica, sans-serif;
@@ -33,7 +47,7 @@ require_once "../../classes/conexao.php";
         #itens {
             color: white;
             position: absolute;
-            top: 70%;
+            top: 80%;
             left: 50%;
             transform: translate(-50%,-50%);
             background-color: rgba(0, 0, 0, 0.6);
@@ -99,24 +113,47 @@ require_once "../../classes/conexao.php";
             background-image: linear-gradient(to right,rgb(0, 80, 172), rgb(80, 19, 195));
         }
 
+        #bt {
+            width: 89%;
+            background-color: #4CAF50; /* Green */
+            border: none;
+            border-radius: 10px;
+            color: white;
+            padding: 12px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+        }
+
+        #bt {
+        transition-duration: 0.4s;
+        }
+
+        #bt:hover {
+        background-color: lightgreen; /* Green */
+        color: white;
+        }
+
     </style>
 </head>
 <body>
     <div id="venda" class="box">
         <form action="">
             <fieldset>
+                <form id="frmVenda">
                 <legend><b>Venda</b></legend>
                 <br>
                 <label for="clientes" class="custom-select">Cliente:</label>
                 <select name="clientes" id="clientes">
                     <option value="A">Selecionar</option>
                     <?php
-                    $sql="SELECT id,nome,preco,qtde 
-                    from produtos";
+                    $sql="SELECT cd_cliente,nm_nome,nr_documneto
+                    from clientes";
                     $result=mysqli_query($conexao,$sql);
-                    while ($produto=mysqli_fetch_row($result)):
+                    while ($clientes=mysqli_fetch_row($result)):
                         ?>
-                        <option value="<?php echo $produto[0] ?>"><?php echo $produto[1]." ".$produto[2] ?></option>
+                        <option value="<?php echo $clientes[0] ?>"><?php echo $clientes[1]." - CPF:".$clientes[2] ?></option>
                     <?php endwhile; ?>
                 </select>
                 <br>           
@@ -133,7 +170,7 @@ require_once "../../classes/conexao.php";
                         <option value="<?php echo $produto[0] ?>"><?php echo $produto[1] ?></option>
                     <?php endwhile; ?>
                 </select>
-                <br><br> 
+                <br><br><br>
                 <div class="inputBox">
                     <input type="text" name="qtde" id="qtde" class="inputUser" value="" onchange="calculaPreco(value)" required>
                     <label for="" class="labelInput">Quantidade</label>
@@ -149,13 +186,13 @@ require_once "../../classes/conexao.php";
                     <label for="" class="labelInput">Total </label>
                 </div>              
                 <br><br>
-                <input type="submit" name="submit" id="submit">
+                <a id="bt" href="#" type="button">Adicionar</a>
+                </form>
             </fieldset>
         </form>
     </div>
     <br><br><br><br><br><br><br><br>
     <div id="itens" class="box">
-        <form action="">
             <fieldset>
                 <legend><b>Itens</b></legend>
                 <br>
@@ -169,12 +206,27 @@ require_once "../../classes/conexao.php";
                     <td style="font-weight: bold;">Editar</td>
                     <td style="font-weight: bold;">Excluir</td>
                 </tr>
+                
+                <?php while($mostrar = mysqli_fetch_row($resultado)): ?>
+
+                <tr>
+                    <td><?php echo $mostrar[0]; ?></td>
+                    <td><?php echo $mostrar[1]; ?></td>
+                    <td><?php echo $mostrar[2]; ?></td>
+                    <td>
+                        <form method="post" action="alterarProduto.php">
+                            <input type="hidden" name="id">
+                            <button style="margin-top:12px; font-size:17px; border:none; background-color: transparent" type="submit"><i style="color: orange; size:9x" class="fas fa-edit"></i></button>
+                        </form>  		
+                    </td>
+                    <td>
+                        <a onclick="eliminarProduto('<?php echo $mostrar[0]; ?>')"><i style="color: red; size: 9x" class="fas fa-trash-alt"></i></a>			
+                    </td>
+                </tr>
+
+                <?php endwhile; ?>
             </fieldset>
-        </form>
     </div>
-               
-
-
 </body>
 </html>
 
@@ -183,7 +235,6 @@ require_once "../../classes/conexao.php";
     var precounit;
 
     function calculaPreco(qtde) { 
-        alert(qtde);
         if(qtde > limite){
             alert("Quantidade não disponivel em estoque");
         }else{
@@ -195,7 +246,6 @@ require_once "../../classes/conexao.php";
         
         var select = document.getElementById('produtos');
         var value = select.options[select.selectedIndex].value;
-        alert(value);
 
         $.ajax({
             type:"POST",
@@ -213,3 +263,159 @@ require_once "../../classes/conexao.php";
     }
 
 </script> 
+
+<script type="text/javascript">
+	$(document).ready(function(){
+        $('#bt').click(function(){
+
+            var dados=$('#frmVenda').serialize();
+
+            var select = document.getElementById('clientes');
+            var cd_cliente = select.options[select.selectedIndex].value;
+
+            var select = document.getElementById('produtos');
+            var ds_produto = select.options[select.selectedIndex].value;
+
+            $.ajax({
+            type:"POST",
+			data:dados,
+            /*"cd_cliente=" + cd_cliente  "vl_tot_nota=" + $('#total').val() "ds_produto=" + ds_produto "qt_item=" + $('#qtde').val() "vl_unit=" + $('#preco').val() "vl_tot_item=" + $('#total').val(),*/
+			url:"../procedimentos/vendas/criarVenda.php",
+			success:function(r){
+				
+				if(r > 0){
+					/*$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
+					$('#frmVendasProdutos')[0].reset();*/
+					alertify.alert("Venda Criada com Sucesso!");
+				}else if(r==0){
+					alertify.alert("Não possui lista de Vendas");
+				}else{
+					alertify.error("Venda não efetuada");
+				}
+			}
+        });
+		});
+    });
+</script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
+
+		$('#produtoVenda').change(function(){
+
+			$.ajax({
+				type:"POST",
+				data:"idproduto=" + $('#produtoVenda').val(),
+				url:"../procedimentos/vendas/obterDadosProdutos.php",
+				success:function(r){
+					dado=jQuery.parseJSON(r);
+
+					$('#descricaoV').val(dado['descricao']);
+
+					$('#quantidadeV').val(dado['quantidade']);
+					$('#precoV').val(dado['preco']);
+					
+					$('#imgProduto').prepend('<img class="img-thumbnail" id="imgp" src="' + dado['url'] + '" />');
+					
+				}
+			});
+		});
+
+		$('#btnAddVenda').click(function(){
+			vazios=validarFormVazio('frmVendasProdutos');
+
+			quant = 0;
+			quantidade = 0;
+
+			quant = $('#quantV').val();
+			quantidade = $('#quantidadeV').val();
+
+
+
+			if(quant > quantidade){
+				alertify.alert("Quantidade inexistente em estoque!!");
+				quant = $('#quantV').val("");
+				return false;
+			}else{
+				quantidade = $('#quantidadeV').val();
+			}
+
+			if(vazios > 0){
+				alertify.alert("Preencha os Campos!!");
+				return false;
+			}
+
+			dados=$('#frmVendasProdutos').serialize();
+			$.ajax({
+				type:"POST",
+				data:dados,
+				url:"../procedimentos/vendas/adicionarProdutoTemp.php",
+				success:function(r){
+					$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
+				}
+			});
+		});
+
+		$('#btnLimparVendas').click(function(){
+
+		$.ajax({
+			url:"../procedimentos/vendas/limparTemp.php",
+			success:function(r){
+				$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
+			}
+		});
+	});
+
+	});
+</script>
+
+<script type="text/javascript">
+
+	function editarP(dados){
+		
+		$.ajax({
+			type:"POST",
+			data:"dados=" + dados,
+			url:"../procedimentos/vendas/editarEstoque.php",
+			success:function(r){
+				
+				$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
+				alertify.success("Estoque Atualizado com Sucesso!!");
+			}
+		});
+	}
+
+
+	function fecharP(index){
+		$.ajax({
+			type:"POST",
+			data:"ind=" + index,
+			url:"../procedimentos/vendas/fecharProduto.php",
+			success:function(r){
+				$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
+				alertify.success("Produto Removido com Sucesso!!");
+			}
+		});
+	}
+
+	function criarVenda(){
+		$.ajax({
+			url:"../procedimentos/vendas/criarVenda.php",
+			success:function(r){
+				
+				if(r > 0){
+					$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
+					$('#frmVendasProdutos')[0].reset();
+					alertify.alert("Venda Criada com Sucesso!");
+				}else if(r==0){
+					alertify.alert("Não possui lista de Vendas");
+				}else{
+					alertify.error("Venda não efetuada");
+				}
+			}
+		});
+	}
+</script>

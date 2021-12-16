@@ -31,33 +31,6 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#tabelaProdutosLoad').load('produtos/tbl_produtos.php');
-/*
-			$('#registro').click(function(){
-				vazios=validarFormVazio('frmRegistro');
-
-				if(vazios > 0){
-					alertify.alert("Preencha os campos!!");
-					return false;
-				}
-
-				datos=$('#frmRegistro').serialize();
-				$.ajax({
-					type:"POST",
-					data:datos,
-					url:"../procedimentos/login/registrarUsuario.php",
-					success:function(r){
-						//alert(r);
-
-						if(r==1){
-							$('#frmRegistro')[0].reset();
-							$('#tabelaUsuariosLoad').load('usuarios/tbl_usuarios.php');
-							alertify.success("Adicionado com sucesso");
-						}else{
-							alertify.error("Falha ao adicionar :(");
-						}
-					}
-				});
-			});*/
 		});
 	</script>
 

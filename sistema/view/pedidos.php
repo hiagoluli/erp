@@ -37,7 +37,7 @@
 
 <div id="tela2"></div>
 
-<div id="tela" style="background-color:#494e5e; border-radius:10px; padding:40px; margin-top:150px; margin-left: 200px; width: 320px;">
+<div id="tela" style="background-color:rgba(0, 0, 0, 0.6); border-radius:10px; padding:40px; margin-top:150px; margin-left: 600px; width: 320px;">
 
     <a id="bt1" href="#" type="button">Vendas</a>
     <a id="bt2" href="#" type="button">Histórico</a>

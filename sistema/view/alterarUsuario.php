@@ -1,4 +1,5 @@
 <?php require_once "dependencias.php" ?>
+<?php require_once "menu.php" ?>
 
 <?php $id = $_POST['id']; 
     echo $id;
@@ -14,7 +15,8 @@
     <body style="background-color: gray">
 
         <div class="login-page">
-            <div class="form">
+            <div style="background-color: rgba(0, 0, 0, 0.6);" class="form">
+                <h3>Alterar Usuario</h3>
                 <form id="frmRegistro">
                     <input type="text" hidden="" id="idUsuario" name="idUsuario"/>
                     <input type="text" id="nome" name="nome" placeholder="Nome"/>

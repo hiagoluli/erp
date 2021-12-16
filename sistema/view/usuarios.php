@@ -10,7 +10,7 @@
 </style>
 
 <!DOCTYPE html>
-	<html>
+<html>
 	<head>
 		<title>usuarios</title>
 		<?php require_once "menu.php"; ?>
@@ -26,40 +26,40 @@
 		</div>
 
 	</body>
-	</html>
+</html>
   
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#tabelaUsuariosLoad').load('usuarios/tbl_usuarios.php');
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#tabelaUsuariosLoad').load('usuarios/tbl_usuarios.php');
 
-			$('#registro').click(function(){
-				vazios=validarFormVazio('frmRegistro');
+		$('#registro').click(function(){
+			vazios=validarFormVazio('frmRegistro');
 
-				if(vazios > 0){
-					alertify.alert("Preencha os campos!!");
-					return false;
-				}
+			if(vazios > 0){
+				alertify.alert("Preencha os campos!!");
+				return false;
+			}
 
-				datos=$('#frmRegistro').serialize();
-				$.ajax({
-					type:"POST",
-					data:datos,
-					url:"../procedimentos/login/registrarUsuario.php",
-					success:function(r){
-						//alert(r);
+			datos=$('#frmRegistro').serialize();
+			$.ajax({
+				type:"POST",
+				data:datos,
+				url:"../procedimentos/login/registrarUsuario.php",
+				success:function(r){
+					//alert(r);
 
-						if(r==1){
-							$('#frmRegistro')[0].reset();
-							$('#tabelaUsuariosLoad').load('usuarios/tbl_usuarios.php');
-							alertify.success("Adicionado com sucesso");
-						}else{
-							alertify.error("Falha ao adicionar :(");
-						}
+					if(r==1){
+						$('#frmRegistro')[0].reset();
+						$('#tabelaUsuariosLoad').load('usuarios/tbl_usuarios.php');
+						alertify.success("Adicionado com sucesso");
+					}else{
+						alertify.error("Falha ao adicionar :(");
 					}
-				});
+				}
 			});
 		});
-	</script>
+	});
+</script>
 
 <?php
 }else{
