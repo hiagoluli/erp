@@ -28,9 +28,6 @@ class clientes{
 		return mysqli_query($conexao, $sql);
 	}
 
-
-
-
 	public function obterDadosCliente($idcliente){
 		$c = new conectar();
 		$conexao=$c->conexao();
@@ -74,19 +71,15 @@ class clientes{
 		$c = new conectar();
 		$conexao=$c->conexao();
 
-		
-
 		$sql = "UPDATE clientes SET nm_nome = '$dados[1]', ds_endereco = '$dados[2]',nr_numero = '$dados[3]',tp_cliente = '$dados[4]',nr_documneto = '$dados[5]',ds_cidade = '$dados[6]',cd_uf = '$dados[7]',dt_cadastro = '$dados[8]',nr_telefone = '$dados[9]',nr_inscricao = '$dados[10]' where cd_cliente = '$dados[0]'";
 
 
 		echo mysqli_query($conexao, $sql);
 	}
 
-
 	public function excluirCliente($id){
 		$c = new conectar();
 		$conexao=$c->conexao();
-		
 
 		$sql = "DELETE from clientes where cd_cliente = '$id' ";
 

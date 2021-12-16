@@ -41,14 +41,7 @@
         $('#tabelaClientesLoad').load('clientes/tbl_clientes.php');
 
         $('#registro').click(function(){
-/*
-            vazios=validarFormVazio('frmRegistro');
 
-            if(vazios > 0){
-                alertify.alert("Preencha os campos!!");
-                return false;
-            }
-*/
             datos=$('#frmRegistro').serialize();
             $.ajax({
                 type:"POST",

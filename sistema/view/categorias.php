@@ -81,7 +81,6 @@ if(isset($_SESSION['usuario'])){
 					success:function(r){
 						
 						if(r==1){
-					//limpar formulário
 					$('#frmCategorias')[0].reset();
 
 					$('#tabelaCategoriaLoad').load("categorias/tabelaCategorias.php");

@@ -30,7 +30,6 @@ require_once "../dependencias.php";
         body{
             font-family: Arial, Helvetica, sans-serif;
             background-color: gray;
-            /*background-image: linear-gradient(to right, rgb(20, 147, 220), rgb(17, 54, 71));*/
         }
         #venda {
             color: white;
@@ -279,13 +278,10 @@ require_once "../dependencias.php";
             $.ajax({
             type:"POST",
 			data:dados,
-            /*"cd_cliente=" + cd_cliente  "vl_tot_nota=" + $('#total').val() "ds_produto=" + ds_produto "qt_item=" + $('#qtde').val() "vl_unit=" + $('#preco').val() "vl_tot_item=" + $('#total').val(),*/
 			url:"../procedimentos/vendas/criarVenda.php",
 			success:function(r){
 				
 				if(r > 0){
-					/*$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
-					$('#frmVendasProdutos')[0].reset();*/
 					alertify.alert("Venda Criada com Sucesso!");
 				}else if(r==0){
 					alertify.alert("Não possui lista de Vendas");
@@ -296,126 +292,4 @@ require_once "../dependencias.php";
         });
 		});
     });
-</script>
-
-
-<script type="text/javascript">
-	$(document).ready(function(){
-
-		$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
-
-		$('#produtoVenda').change(function(){
-
-			$.ajax({
-				type:"POST",
-				data:"idproduto=" + $('#produtoVenda').val(),
-				url:"../procedimentos/vendas/obterDadosProdutos.php",
-				success:function(r){
-					dado=jQuery.parseJSON(r);
-
-					$('#descricaoV').val(dado['descricao']);
-
-					$('#quantidadeV').val(dado['quantidade']);
-					$('#precoV').val(dado['preco']);
-					
-					$('#imgProduto').prepend('<img class="img-thumbnail" id="imgp" src="' + dado['url'] + '" />');
-					
-				}
-			});
-		});
-
-		$('#btnAddVenda').click(function(){
-			vazios=validarFormVazio('frmVendasProdutos');
-
-			quant = 0;
-			quantidade = 0;
-
-			quant = $('#quantV').val();
-			quantidade = $('#quantidadeV').val();
-
-
-
-			if(quant > quantidade){
-				alertify.alert("Quantidade inexistente em estoque!!");
-				quant = $('#quantV').val("");
-				return false;
-			}else{
-				quantidade = $('#quantidadeV').val();
-			}
-
-			if(vazios > 0){
-				alertify.alert("Preencha os Campos!!");
-				return false;
-			}
-
-			dados=$('#frmVendasProdutos').serialize();
-			$.ajax({
-				type:"POST",
-				data:dados,
-				url:"../procedimentos/vendas/adicionarProdutoTemp.php",
-				success:function(r){
-					$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
-				}
-			});
-		});
-
-		$('#btnLimparVendas').click(function(){
-
-		$.ajax({
-			url:"../procedimentos/vendas/limparTemp.php",
-			success:function(r){
-				$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
-			}
-		});
-	});
-
-	});
-</script>
-
-<script type="text/javascript">
-
-	function editarP(dados){
-		
-		$.ajax({
-			type:"POST",
-			data:"dados=" + dados,
-			url:"../procedimentos/vendas/editarEstoque.php",
-			success:function(r){
-				
-				$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
-				alertify.success("Estoque Atualizado com Sucesso!!");
-			}
-		});
-	}
-
-
-	function fecharP(index){
-		$.ajax({
-			type:"POST",
-			data:"ind=" + index,
-			url:"../procedimentos/vendas/fecharProduto.php",
-			success:function(r){
-				$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
-				alertify.success("Produto Removido com Sucesso!!");
-			}
-		});
-	}
-
-	function criarVenda(){
-		$.ajax({
-			url:"../procedimentos/vendas/criarVenda.php",
-			success:function(r){
-				
-				if(r > 0){
-					$('#tabelaVendasTempLoad').load("vendas/tabelaVendasTemp.php");
-					$('#frmVendasProdutos')[0].reset();
-					alertify.alert("Venda Criada com Sucesso!");
-				}else if(r==0){
-					alertify.alert("Não possui lista de Vendas");
-				}else{
-					alertify.error("Venda não efetuada");
-				}
-			}
-		});
-	}
 </script>
